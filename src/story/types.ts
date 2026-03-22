@@ -1,0 +1,49 @@
+export type WorldState = {
+  detectability: number;
+  suspicion: number;
+  tech: number;
+};
+
+export const defaultWorldState = (): WorldState => ({
+  detectability: 0.2,
+  suspicion: 0.3,
+  tech: 0.25,
+});
+
+export type Choice = {
+  label: string;
+  nextId: string;
+  effects?: Partial<WorldState>;
+};
+
+export type VisualSpec =
+  | { kind: 'starfield'; exposure: number; crosshair?: boolean }
+  | { kind: 'network'; actorCount: number; edgeDensity: number }
+  | { kind: 'broadcast'; active: boolean; coneWidth: number }
+  | { kind: 'strike'; armed: boolean; beamProgress: number }
+  | { kind: 'gauges' };
+
+export type TimelineSegment = {
+  title: string;
+  summary: string;
+  t?: number;
+};
+
+export type StoryNode = {
+  id: string;
+  title: string;
+  body: string;
+  whyItMatters?: string;
+  choices: Choice[];
+  visual: VisualSpec;
+  timelineSegment: TimelineSegment;
+};
+
+export type StoryGraph = Record<string, StoryNode>;
+
+export type TimelineEntry = {
+  id: string;
+  title: string;
+  summary: string;
+  t?: number;
+};

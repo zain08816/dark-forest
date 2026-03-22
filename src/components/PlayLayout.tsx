@@ -1,0 +1,73 @@
+import { storyGraph } from '../story/graph';
+import { isTerminalNode } from '../story/validate';
+import type { WorldState } from '../story/types';
+import { VisualStage } from './VisualStage';
+import { NarrativeBeat } from './NarrativeBeat';
+import { ChoiceList } from './ChoiceList';
+import { buildTimelineEntries } from '../story/timeline';
+import { Timeline } from './Timeline';
+import { CompactMeters } from './CompactMeters';
+
+type Props = {
+  nodeId: string;
+  timelineIds: string[];
+  world: WorldState;
+  onChoose: (nextId: string, effects: Partial<WorldState> | undefined) => void;
+  onReset: () => void;
+  onExit: () => void;
+};
+
+export function PlayLayout({
+  nodeId,
+  timelineIds,
+  world,
+  onChoose,
+  onReset,
+  onExit,
+}: Props) {
+  const node = storyGraph[nodeId];
+  if (!node) {
+    return (
+      <div className="play-error">
+        <p>Unknown story node.</p>
+        <button type="button" onClick={onReset}>
+          Restart
+        </button>
+      </div>
+    );
+  }
+
+  const terminal = isTerminalNode(node);
+  const entries = buildTimelineEntries(storyGraph, timelineIds);
+  const showCompactMeters = node.visual.kind !== 'gauges';
+
+  return (
+    <div className="play-layout">
+      <header className="play-header">
+        <button type="button" className="linkish" onClick={onExit}>
+          ← Home
+        </button>
+        <span className="play-tag">Dark Forest scenario</span>
+      </header>
+      <div className="play-grid">
+        <Timeline entries={entries} currentId={nodeId} />
+        <main className="play-main">
+          <NarrativeBeat node={node} />
+          {showCompactMeters && <CompactMeters world={world} />}
+          <div className="visual-wrap">
+            <VisualStage visual={node.visual} world={world} />
+          </div>
+          <ChoiceList choices={node.choices} onChoose={onChoose} />
+          {terminal && (
+            <div className="ending-actions">
+              <p className="ending-hint">This branch ends here.</p>
+              <button type="button" className="primary-btn" onClick={onReset}>
+                Play again from the start
+              </button>
+            </div>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}

@@ -1,0 +1,394 @@
+:root {
+  color-scheme: dark;
+  --bg: #07090d;
+  --panel: #0e1219;
+  --text: #e6eaf2;
+  --muted: #8a96ab;
+  --accent: #6eb5ff;
+  --border: #1e2635;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  line-height: 1.55;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+  color: var(--text);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.app-shell {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.25rem 1rem 2rem;
+}
+
+/* Landing */
+.landing-header h1 {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  font-size: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.landing-lead {
+  color: var(--muted);
+  font-size: 1.05rem;
+  max-width: 42rem;
+}
+
+.landing-body {
+  margin-top: 1.5rem;
+  max-width: 42rem;
+}
+
+.landing-body p {
+  margin: 0 0 1rem;
+}
+
+.landing-body a {
+  color: var(--accent);
+}
+
+.landing-actions {
+  margin-top: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.primary-btn,
+.secondary-btn {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.65rem 1.1rem;
+  border: 1px solid var(--border);
+}
+
+.primary-btn {
+  background: #1c2a3f;
+  color: var(--text);
+  border-color: #2a3f5c;
+}
+
+.primary-btn:hover {
+  background: #243652;
+}
+
+.secondary-btn {
+  background: transparent;
+  color: var(--muted);
+}
+
+.secondary-btn:hover {
+  color: var(--text);
+}
+
+/* Play layout */
+.play-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.play-tag {
+  font-size: 0.8rem;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.linkish {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+}
+
+.linkish:hover {
+  text-decoration: underline;
+}
+
+.play-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 260px) 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+@media (max-width: 880px) {
+  .play-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .timeline-rail {
+    order: 2;
+  }
+
+  .play-main {
+    order: 1;
+  }
+}
+
+.play-main {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.25rem 1.25rem 1.5rem;
+}
+
+.narrative-beat .beat-title {
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin: 0 0 1rem;
+}
+
+.beat-body p {
+  margin: 0 0 0.85rem;
+  color: #d4dae6;
+}
+
+.why-box {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.why-toggle {
+  font: inherit;
+  background: none;
+  border: none;
+  color: var(--accent);
+  cursor: pointer;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+
+.why-text {
+  margin: 0;
+  font-size: 0.92rem;
+  color: var(--muted);
+}
+
+.compact-meters {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem 1rem;
+  margin: 1rem 0;
+}
+
+@media (max-width: 520px) {
+  .compact-meters {
+    grid-template-columns: 1fr;
+  }
+}
+
+.compact-meter {
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.compact-meter-bar {
+  height: 6px;
+  background: #1a2230;
+  border-radius: 4px;
+  margin-top: 0.25rem;
+  overflow: hidden;
+}
+
+.compact-meter-bar span {
+  display: block;
+  height: 100%;
+  border-radius: 4px;
+}
+
+.visual-wrap {
+  margin: 1rem 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: #050608;
+}
+
+.visual-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
+  max-height: 360px;
+}
+
+.visual-stage {
+  position: relative;
+}
+
+.gauges-panel {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  min-height: 200px;
+  justify-content: center;
+}
+
+.gauge-row {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 0.5rem;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.gauge-label {
+  color: var(--muted);
+}
+
+.gauge-track {
+  height: 10px;
+  background: #1a2230;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.gauge-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.4s ease;
+}
+
+.choice-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  margin-top: 1rem;
+}
+
+.choice-btn {
+  font: inherit;
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  border: 1px solid #2a3f5c;
+  background: #121a28;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.choice-btn:hover {
+  border-color: var(--accent);
+  background: #182233;
+}
+
+.ending-actions {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+}
+
+.ending-hint {
+  margin: 0 0 0.75rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+
+.play-error {
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Timeline */
+.timeline-rail {
+  position: sticky;
+  top: 1rem;
+  font-size: 0.82rem;
+}
+
+.timeline-heading {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin: 0 0 0.75rem;
+}
+
+.timeline-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid var(--border);
+}
+
+.timeline-item {
+  margin: 0;
+  padding-left: 0.5rem;
+}
+
+.timeline-row {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.45rem 0;
+  color: var(--muted);
+}
+
+.timeline-item.current .timeline-row {
+  color: var(--text);
+}
+
+.timeline-item.past .timeline-summary {
+  opacity: 0.65;
+}
+
+.timeline-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-top: 0.35rem;
+  flex-shrink: 0;
+  background: #3a4a62;
+}
+
+.timeline-item.current .timeline-dot {
+  background: var(--accent);
+  box-shadow: 0 0 8px rgba(110, 181, 255, 0.5);
+}
+
+.timeline-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.timeline-title {
+  font-weight: 600;
+  color: inherit;
+}
+
+.timeline-summary {
+  font-size: 0.78rem;
+  line-height: 1.35;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
