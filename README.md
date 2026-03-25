@@ -11,7 +11,7 @@ A static SPA that walks through the Dark Forest hypothesis as a choose-your-own-
 
 ## Editing the story
 
-1. Open [`src/story/nodes/mvp.ts`](src/story/nodes/mvp.ts) (or add more node files and import them in [`src/story/graph.ts`](src/story/graph.ts)).
+1. Open [`src/story/nodes/`](src/story/nodes/) (see [`index.ts`](src/story/nodes/index.ts); add modules and wire them in [`src/story/graph.ts`](src/story/graph.ts)).
 2. Each node has an `id`, `title`, `body` (paragraphs separated by `\n\n`; use `**bold**` for emphasis), `choices[]` with `nextId` and optional `effects` on world state, `visual`, and `timelineSegment`.
 3. Terminal nodes use `choices: []`.
 4. Run `npm test` to ensure every `nextId` exists and the graph is reachable from `start`.

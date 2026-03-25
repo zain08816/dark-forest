@@ -13,6 +13,8 @@ export const defaultWorldState = (): WorldState => ({
 export type Choice = {
   label: string;
   nextId: string;
+  /** Optional plain-language preview when outcome hints are enabled (overrides nothing; extras still show). */
+  hint?: string;
   effects?: Partial<WorldState>;
 };
 
@@ -26,7 +28,12 @@ export type VisualSpec =
 export type TimelineSegment = {
   title: string;
   summary: string;
+  /** Sort key for timeline ordering when years branch nonlinearly */
   t?: number;
+  /** Approximate calendar year (CE) for this beat, when it helps the player */
+  yearApprox?: number;
+  /** Plain-language era when a number is awkward (e.g. huge jumps) */
+  yearLabel?: string;
 };
 
 export type StoryNode = {
@@ -46,4 +53,6 @@ export type TimelineEntry = {
   title: string;
   summary: string;
   t?: number;
+  yearApprox?: number;
+  yearLabel?: string;
 };

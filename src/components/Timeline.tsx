@@ -6,6 +6,14 @@ type Props = {
   currentId: string;
 };
 
+function formatEra(e: TimelineEntry): string | null {
+  if (e.yearLabel) return e.yearLabel;
+  if (e.yearApprox != null) {
+    return `c. ${e.yearApprox.toLocaleString('en-US', { useGrouping: false })} CE`;
+  }
+  return null;
+}
+
 export function Timeline({ entries, currentId }: Props) {
   const reduce = useReducedMotion();
   const curIdx = entries.findIndex((x) => x.id === currentId);
@@ -17,6 +25,7 @@ export function Timeline({ entries, currentId }: Props) {
         {entries.map((e, i) => {
           const isCurrent = e.id === currentId;
           const isPast = curIdx >= 0 && i < curIdx;
+          const era = formatEra(e);
           return (
             <motion.li
               key={`${e.id}-${i}`}
@@ -32,6 +41,7 @@ export function Timeline({ entries, currentId }: Props) {
                 <span className="timeline-dot" />
                 <span className="timeline-body">
                   <span className="timeline-title">{e.title}</span>
+                  {era && <span className="timeline-era">{era}</span>}
                   <span className="timeline-summary">{e.summary}</span>
                 </span>
               </div>

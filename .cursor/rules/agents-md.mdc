@@ -1,0 +1,10 @@
+---
+description: Follow AGENTS.md for project context, commands, and conventions
+alwaysApply: true
+---
+
+# Project agent context
+
+Before making substantive changes in this repository, read and follow **`AGENTS.md`** at the repo root. It defines the stack, npm commands, directory layout, story-editing workflow, and implementation expectations.
+
+If `AGENTS.md` and this rule ever disagree, prefer **`AGENTS.md`** and consider updating this rule.

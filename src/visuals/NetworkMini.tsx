@@ -26,8 +26,8 @@ export function NetworkMini({ actorCount, edgeDensity }: Props) {
     <svg viewBox="0 0 100 100" className="visual-svg" aria-hidden>
       <defs>
         <radialGradient id="netbg" cx="50%" cy="50%" r="60%">
-          <stop offset="0%" stopColor="#12161f" />
-          <stop offset="100%" stopColor="#07090d" />
+          <stop offset="0%" stopColor="#151a26" />
+          <stop offset="100%" stopColor="#06080d" />
         </radialGradient>
       </defs>
       <rect width="100" height="100" fill="url(#netbg)" />
@@ -39,22 +39,42 @@ export function NetworkMini({ actorCount, edgeDensity }: Props) {
           x2={nodes[b].x}
           y2={nodes[b].y}
           stroke="#4a6fa5"
-          strokeWidth="0.2"
+          strokeWidth="0.22"
           initial={reduce ? { opacity: 0.35 } : { opacity: 0 }}
-          animate={{ opacity: 0.35 }}
-          transition={{ duration: 0.5, delay: i * 0.05 }}
+          animate={
+            reduce
+              ? { opacity: 0.35 }
+              : { opacity: [0.22, 0.48, 0.22], strokeWidth: [0.18, 0.3, 0.18] }
+          }
+          transition={{
+            duration: 5 + (i % 4) * 1.2,
+            repeat: Infinity,
+            ease: 'easeInOut',
+            delay: i * 0.12,
+          }}
         />
       ))}
       {nodes.map((p, i) => (
         <motion.circle
           key={`n-${i}`}
-          cx={p.x}
-          cy={p.y}
           r="2.2"
           fill="#8ab4d8"
           initial={reduce ? false : { scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ delay: 0.1 + i * 0.06 }}
+          animate={
+            reduce
+              ? { cx: p.x, cy: p.y, scale: 1 }
+              : {
+                  cx: [p.x - 0.45, p.x + 0.45, p.x],
+                  cy: [p.y - 0.35, p.y + 0.35, p.y],
+                  scale: [1, 1.08, 1],
+                }
+          }
+          transition={{
+            delay: 0.1 + i * 0.06,
+            duration: 10 + i * 0.9,
+            repeat: Infinity,
+            ease: 'easeInOut',
+          }}
         />
       ))}
     </svg>

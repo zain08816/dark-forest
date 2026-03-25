@@ -14,6 +14,8 @@ export function buildTimelineEntries(
       title: n.timelineSegment.title,
       summary: n.timelineSegment.summary,
       t: n.timelineSegment.t,
+      yearApprox: n.timelineSegment.yearApprox,
+      yearLabel: n.timelineSegment.yearLabel,
     };
   });
 }

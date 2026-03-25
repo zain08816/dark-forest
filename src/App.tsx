@@ -29,6 +29,7 @@ export default function App() {
       <PlayLayout
         nodeId={run.nodeId}
         timelineIds={run.timelineIds}
+        decisions={run.decisions}
         world={run.world}
         onChoose={choose}
         onReset={resetRun}

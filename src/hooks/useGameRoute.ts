@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import { START_ID } from '../story/graph';
+import { START_ID, storyGraph } from '../story/graph';
+import { normalizeRunDecisions } from '../story/pathDecisions';
 import type { WorldState } from '../story/types';
 import {
   clearRun,
@@ -32,19 +33,30 @@ function setLandingHash() {
   window.location.hash = '/';
 }
 
+function normalizeSerializedRun(run: SerializedRun): SerializedRun {
+  const decisions = normalizeRunDecisions(storyGraph, run);
+  if (
+    decisions.length === run.decisions.length &&
+    decisions.every((v, i) => v === run.decisions[i])
+  ) {
+    return run;
+  }
+  return { ...run, decisions };
+}
+
 export function useGameRoute() {
   const [route, setRoute] = useState<Route>(() =>
     typeof window !== 'undefined' ? parseHash() : { mode: 'landing' }
   );
   const [run, setRun] = useState<SerializedRun>(() => {
-    if (typeof window === 'undefined') return initialRun(START_ID);
+    if (typeof window === 'undefined') return normalizeSerializedRun(initialRun(START_ID));
     const saved = loadRun();
     const r = parseHash();
     if (r.mode === 'play') {
-      if (saved && saved.nodeId === r.nodeId) return saved;
-      return initialRun(r.nodeId);
+      if (saved && saved.nodeId === r.nodeId) return normalizeSerializedRun(saved);
+      return normalizeSerializedRun(initialRun(r.nodeId));
     }
-    return saved ?? initialRun(START_ID);
+    return saved ? normalizeSerializedRun(saved) : normalizeSerializedRun(initialRun(START_ID));
   });
 
   useEffect(() => {
@@ -53,10 +65,10 @@ export function useGameRoute() {
       setRoute(r);
       if (r.mode === 'play') {
         setRun((prev) => {
-          if (prev.nodeId === r.nodeId) return prev;
+          if (prev.nodeId === r.nodeId) return normalizeSerializedRun(prev);
           const saved = loadRun();
-          if (saved && saved.nodeId === r.nodeId) return saved;
-          return initialRun(r.nodeId);
+          if (saved && saved.nodeId === r.nodeId) return normalizeSerializedRun(saved);
+          return normalizeSerializedRun(initialRun(r.nodeId));
         });
       }
     };
@@ -68,13 +80,14 @@ export function useGameRoute() {
     if (resume) {
       const saved = loadRun();
       if (saved) {
-        setRun(saved);
-        setPlayHash(saved.nodeId);
-        setRoute({ mode: 'play', nodeId: saved.nodeId });
+        const r = normalizeSerializedRun(saved);
+        setRun(r);
+        setPlayHash(r.nodeId);
+        setRoute({ mode: 'play', nodeId: r.nodeId });
         return;
       }
     }
-    const fresh = initialRun(START_ID);
+    const fresh = normalizeSerializedRun(initialRun(START_ID));
     setRun(fresh);
     clearRun();
     setPlayHash(START_ID);
@@ -87,8 +100,18 @@ export function useGameRoute() {
   }, []);
 
   const visitNode = useCallback(
-    (nodeId: string, timelineAppend: string[], world: WorldState) => {
-      const next: SerializedRun = { nodeId, timelineIds: timelineAppend, world };
+    (
+      nodeId: string,
+      timelineAppend: string[],
+      world: WorldState,
+      decisionsAppend: number[]
+    ) => {
+      const next: SerializedRun = {
+        nodeId,
+        timelineIds: timelineAppend,
+        world,
+        decisions: decisionsAppend,
+      };
       setRun(next);
       saveRun(next);
       setPlayHash(nodeId);
@@ -98,17 +121,22 @@ export function useGameRoute() {
   );
 
   const choose = useCallback(
-    (nextId: string, effects: Partial<WorldState> | undefined) => {
+    (
+      nextId: string,
+      effects: Partial<WorldState> | undefined,
+      choiceIndex: number
+    ) => {
       const world = applyEffects(run.world, effects);
       const nextTimeline = [...run.timelineIds, nextId];
-      visitNode(nextId, nextTimeline, world);
+      const nextDecisions = [...run.decisions, choiceIndex];
+      visitNode(nextId, nextTimeline, world, nextDecisions);
     },
-    [run.world, run.timelineIds, visitNode]
+    [run.world, run.timelineIds, run.decisions, visitNode]
   );
 
   const resetRun = useCallback(() => {
     clearRun();
-    const fresh = initialRun(START_ID);
+    const fresh = normalizeSerializedRun(initialRun(START_ID));
     setRun(fresh);
     setPlayHash(START_ID);
     setRoute({ mode: 'play', nodeId: START_ID });
