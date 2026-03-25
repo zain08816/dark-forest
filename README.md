@@ -1,20 +1,26 @@
 # Dark Forest — interactive scenario
 
-A static SPA that walks through the Dark Forest hypothesis as a choose-your-own-adventure: branching narrative, animated visuals, a timeline that grows with your path, and optional save/resume via `localStorage`.
+A static **React + Vite + TypeScript** SPA that explores the Dark Forest idea as a branching narrative: choices update **world-state meters**, per-beat **animations** (one visual component per story node id), a **timeline** tied to your path, optional **path map / decision hints** in the UI, and **save/resume** via `localStorage`. No backend — `npm run build` outputs static files in `dist/`.
 
 ## Commands
 
-- `npm run dev` — local development
-- `npm run build` — production build to `dist/`
-- `npm run preview` — preview the build
-- `npm test` — graph integrity tests
+| Command | Purpose |
+|--------|---------|
+| `npm run dev` | Local development |
+| `npm run build` | Typecheck + production build |
+| `npm run test` | Vitest (story graph and related tests under `src/**/*.test.ts`) |
+| `npm run lint` | ESLint |
+| `npm run preview` | Preview the production build |
+
+After editing nodes or links, run **`npm test`** so bad `nextId` values or unreachable nodes show up quickly.
 
 ## Editing the story
 
-1. Open [`src/story/nodes/`](src/story/nodes/) (see [`index.ts`](src/story/nodes/index.ts); add modules and wire them in [`src/story/graph.ts`](src/story/graph.ts)).
-2. Each node has an `id`, `title`, `body` (paragraphs separated by `\n\n`; use `**bold**` for emphasis), `choices[]` with `nextId` and optional `effects` on world state, `visual`, and `timelineSegment`.
-3. Terminal nodes use `choices: []`.
-4. Run `npm test` to ensure every `nextId` exists and the graph is reachable from `start`.
+1. Narrative modules live in [`src/story/nodes/`](src/story/nodes/). Export node arrays from new files and add them to [`src/story/nodes/index.ts`](src/story/nodes/index.ts) as part of `allStoryNodes`. [`src/story/graph.ts`](src/story/graph.ts) builds `storyGraph` from that list; the entry id is `start`.
+2. Each node needs `id`, `title`, `body` (paragraphs with `\n\n`; `**bold**` is rendered in the narrative UI), `choices` (`label`, `nextId`, optional `hint`, optional `effects` on detectability / suspicion / tech), and `timelineSegment` (`title`, `summary`, plus optional `t`, `yearApprox`, `yearLabel`). Optional `whyItMatters` adds extra context in the UI. Endings use `choices: []`.
+3. Stage graphics are **not** on the node object: register a component for each node id under [`src/visuals/beats/`](src/visuals/beats/) and merge it in [`src/visuals/beats/registry.tsx`](src/visuals/beats/registry.tsx). Missing ids show a fallback graphic in dev/play.
+
+Contributor-oriented layout and conventions are in [`AGENTS.md`](AGENTS.md).
 
 ## Deployment
 
