@@ -6,7 +6,7 @@ type Props = { world: WorldState };
 export function CompactMeters({ world }: Props) {
   return (
     <div className="compact-meters-wrap">
-      <div className="compact-meters" aria-label="Strategic state: exposure, suspicion, explosion risk">
+      <div className="compact-meters" aria-label="Strategic state: exposure, suspicion, technological explosion risk">
         {WORLD_METERS.map((m) => (
           <Meter key={m.key} def={m} v={world[m.key]} />
         ))}

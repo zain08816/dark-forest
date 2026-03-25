@@ -9,8 +9,7 @@ export const coreNodes: StoryNode[] = [
 This is not a story about what aliens are *like*. It is a test of one cold idea: the Dark Forest. Many worlds may exist; they keep their voices down because being seen can be dangerous. You start where every watcher starts—in the dark, not knowing who else is breathing.`,
     whyItMatters:
       'The scenario treats the Dark Forest as a game-theoretic sketch, not a proof about the real universe.',
-    choices: [{ label: 'Begin the listening campaign', nextId: 'signal' }],
-    visual: { kind: 'starfield', exposure: 0.1, crosshair: false },
+    choices: [{ label: 'Listen across the sky', nextId: 'signal' }],
     timelineSegment: {
       title: 'Era 0 — Listening',
       summary: 'A civilization turns its instruments outward.',
@@ -28,19 +27,18 @@ Whatever it is, it is not a handshake. It is proof that the night has rules you 
       'In the Dark Forest framing, evidence of others starts the clock on suspicion and exposure.',
     choices: [
       {
-        label: 'Analyze quietly and share nothing',
+        label: 'Keep the finding secret; analyze in-house',
         nextId: 'chain',
         effects: { suspicion: 0.05 },
         hint: 'Keep the finding inside a small circle; the wider world still senses something shifting.',
       },
       {
-        label: 'Alert allied institutes and widen the search',
+        label: 'Tell allies and widen the search',
         nextId: 'chain',
         effects: { detectability: 0.15, suspicion: -0.05 },
         hint: 'Pool minds and instruments; coordinated search trades stealth for shared certainty.',
       },
     ],
-    visual: { kind: 'starfield', exposure: 0.25, crosshair: true },
     timelineSegment: {
       title: 'Era 1 — First ambiguity',
       summary: 'A structured signal appears; intent is unknown.',
@@ -54,8 +52,7 @@ Whatever it is, it is not a handshake. It is proof that the night has rules you 
     body: `If another mind is out there, you cannot know its heart. It cannot know yours. Each of you imagines what the other might do next—and what the other imagines *you* imagining. That endless mirror is the **chain of suspicion**.
 
 You do not need hate for it to work. You only need risk in the dark. One player you cannot predict is enough to make silence look like wisdom.`,
-    choices: [{ label: 'Continue', nextId: 'explosion' }],
-    visual: { kind: 'network', actorCount: 4, edgeDensity: 0.4 },
+    choices: [{ label: 'Next: when tech can outpace light', nextId: 'explosion' }],
     timelineSegment: {
       title: 'Era 2 — Chain of suspicion',
       summary: 'Uncertainty compounds across minds you cannot read.',
@@ -69,8 +66,7 @@ You do not need hate for it to work. You only need risk in the dark. One player 
     body: `Do not picture a frozen enemy. Capabilities can compound—each leap making the next one easier. A quiet neighbor can become a giant before your warnings travel far enough to matter. That possibility is **technological explosion**: a reason to worry before anyone shoots.
 
 You are not claiming it always happens. You are asking what you should do if it *can*.`,
-    choices: [{ label: 'Face the strategic choice', nextId: 'router' }],
-    visual: { kind: 'gauges' },
+    choices: [{ label: 'Pick a scenario', nextId: 'router' }],
     timelineSegment: {
       title: 'Era 3 — Non-constant threat',
       summary: 'Capabilities may change faster than light can carry news.',
@@ -81,62 +77,73 @@ You are not claiming it always happens. You are asking what you should do if it 
   {
     id: 'router',
     title: 'Branching scenarios',
-    body: `A quiet sky does not prove the Dark Forest. It only proves you still lack answers. From here the story splits five ways. Each path keeps the same chill at its center—being seen, being guessed, being outpaced by someone you will never meet—but each changes *what* you fear most.
+    body: `A quiet sky does not prove the Dark Forest—it only means you still lack an explanation. Here the narrative splits five ways. Every branch keeps the same strategic bite—being seen, misread, or outrun by actors you will never meet—but each one names a different *driver* of the silence.
 
-You can take the **classic fork**: shout, hide, or tap the dark with a small, careful knock. Or you follow **machines that copy themselves** until no one remembers who launched them; the **zoo** idea, where silence is a rule someone enforced; a universe **already carved up** by those who arrived early; or the **long wait**, where civilizations put off noisy work until the deep future changes the math.
+**Classic exposure:** be loud, vanish, or ping with almost nothing.
 
-None of these is a prediction. They are lenses. Pick one and see what breaks.`,
+**Probes:** self-replicating hardware still following orders no living builder can cancel.
+
+**Zoo:** silence as policy—custodians who agreed (or were forced) to leave young worlds alone.
+
+**Expansion:** the easy ground was taken long ago; your sky looks empty because you are downstream.
+
+**Long wait:** advanced civs defer hot, obvious megaprojects until deep time makes them cheap—“gone” and “not loud yet” look the same.
+
+These are thought experiments, not predictions. Pick one.`,
     choices: [
       {
-        label: 'Classic exposure — bright signal, deep silence, or bare timing ping',
+        label: 'Classic: broadcast, hide, or minimal ping',
         nextId: 'strategy',
         effects: { suspicion: 0.02 },
-        hint: `Three moves. Each teaches the sky something different about you.
+        hint: `Three stances; each changes what distant observers can infer.
 
-**Broadcast** is a bet that honesty will be answered in kind—not with a shot fired early out of dread of how strong you might become. **Going dark** buys stealth and costs shared knowledge; you may still be found by leaks you did not plan. A **minimal ping** says *we are here* without much else—but even a thin signal can tighten the **chain of suspicion** instead of loosening it.`,
+**Broadcast** assumes openness draws cooperation rather than a preemptive strike driven by fear of your growth.
+
+**Going dark** shrinks your signature but costs shared knowledge; accidents can still expose you.
+
+**A minimal ping** admits existence without detail—yet any signal above the noise can tighten the chain of suspicion.`,
       },
       {
-        label: 'Probe tracks — von Neumann machines and mandates that outlive their makers',
+        label: 'Probes: self-replicators and dead-hand orders',
         nextId: 'probe_intro',
         effects: { suspicion: 0.06 },
-        hint: `Here the danger is not only minds like yours. It is **machines** that copy themselves—wreckage, old code, orders left behind when their makers are dust.
+        hint: `The threat is not only alien minds but **self-replicators**: machines duplicating under mandates no living founder can revoke.
 
-You follow metal that should not exist in your timeline, watch spread surge until something—energy, error, raw stuff—finally chokes it, and ask whether the silent sky is the calm **after** such a bloom, or the quiet **before** the next one. Hate is optional; duplication and distance are enough.
+You track impossible wreckage, model spread until friction or error bends the curve, and ask whether the hush is ash after a past bloom or calm before the next. Malice is optional; exponentials and light-lag are not.
 
-The ending depends on whether you face an enemy who can bargain—or only **heirs** still running a command no one can cancel.`,
+Resolutions hinge on whether anyone alive can negotiate—or only descendants still executing a mandate.`,
       },
       {
-        label: 'Zoo hypothesis — the Great Silence as quarantine or custodianship',
+        label: 'Zoo: silence as quarantine or caretaking',
         nextId: 'zoo_gate',
         effects: { detectability: -0.05 },
-        hint: `Maybe the silence is **on purpose**—old powers agreeing not to stomp young worlds, or ethics that treat your planet as a living exhibit. The fear shifts from “they are all hiding” to “we were never alone; we were watched.”
+        hint: `Maybe the silence is **by design**—treaty, taboo, or a preserve: “they are not hiding from you; they left you alone.”
 
-You hunt for tiny regularities in the data, memos that sound like maintenance, not scripture, and the day your curiosity bumps a fence you did not agree to.
+You look for caretaker traces in survey residuals and memos that read like operations, not scripture—until curiosity hits a boundary you never ratified.
 
-The close depends on whether such rules hold when someone cheats, whether you are only seeing patterns in noise—or whether knowing the house rules makes you a problem for the house.`,
+Outcomes turn on whether the rules survive cheaters, whether the pattern is real, and whether proof makes you an asset or a liability to whoever enforces the fence.`,
       },
       {
-        label: 'Expansion scar — rivals who ate the easy real estate before you arrived',
+        label: 'Expansion: late to an already carved-up sky',
         nextId: 'expand_shell',
         effects: { detectability: 0.12 },
-        hint: `In this fork, stealth is not the whole story. Some actors may simply **spread**—turning matter into shell after shell until the easy ground is gone. The sky looks empty because the good seats were taken long before you looked up.
+        hint: `Stealth is only half the picture. Some actors **expand**—turning matter into structure until latecomers inherit scraps. Empty sky can mean you missed the land rush.
 
-You track a cold direction in the maps, dust warmed in bursts you cannot date, rules in the gas that feel imported—less “ship at the door” than *your* patch of physics bearing someone else’s fingerprints.
+Evidence skews directional: thinned sectors, episodic dust heating, local physics that feels “tuned” upstream—less a ship at the door than a tide you did not start.
 
-Endings turn on who moved first, whether you can fit into their order or must refuse it, and whether fear of the forest still matters when the map already shows hunger written plain.`,
+Closures hinge on chronology, whether you can live inside their order or must defy it, and whether dark-forest logic still applies once the map already shows appetite.`,
       },
       {
-        label: 'The long wait — civilizations postponing loud, costly phases',
+        label: 'Long wait: loud work deferred to deep time',
         nextId: 'wait_patience',
         effects: { tech: 0.05 },
-        hint: `Perhaps nobody is screaming because the **clock** is wrong. Advanced worlds might postpone heavy, hot work until the universe cools enough that serious thought becomes cheap. From far away, waiting and nothingness look the same.
+        hint: `Perhaps nobody is screaming because the **timeline** is skewed: civs may shelve hot, visible engineering until cosmic cooling makes megascale work cheap. Observers with short lives read long deferrals as absence.
 
-You build governments meant to last ice ages, treat boredom as law, and learn whether stillness saved your options—or cost you the only years when a move was possible.
+You build institutions for ice ages and forbid flashy beacons, betting patience preserves option value.
 
-The ending weighs discipline against regret: the forest may simply be **not loud yet**. You included.`,
+The ending weighs whether stillness was wisdom—or whether you slept through the only window to matter. The forest may simply **not be loud yet**; you are part of that datum.`,
       },
     ],
-    visual: { kind: 'network', actorCount: 6, edgeDensity: 0.55 },
     timelineSegment: {
       title: 'Era 4 — Fork',
       summary: 'One sky; several incompatible stories.',

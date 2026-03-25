@@ -29,6 +29,6 @@ describe('pathDecisions', () => {
       [0, 1]
     );
     expect(steps).toHaveLength(2);
-    expect(steps[1]!.choiceLabel).toContain('institutes');
+    expect(steps[1]!.choiceLabel).toContain('allies');
   });
 });

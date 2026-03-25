@@ -46,7 +46,6 @@ export function PlayLayout({
 
   const terminal = isTerminalNode(node);
   const entries = buildTimelineEntries(storyGraph, timelineIds);
-  const showCompactMeters = node.visual.kind !== 'gauges';
 
   return (
     <div className="play-layout">
@@ -57,12 +56,12 @@ export function PlayLayout({
         <span className="play-tag">Dark Forest scenario</span>
       </header>
       <div className="play-grid">
-        <Timeline entries={entries} currentId={nodeId} />
+        <Timeline entries={entries} currentId={nodeId} world={world} />
         <main className="play-main">
           <NarrativeBeat node={node} />
-          {showCompactMeters && <CompactMeters world={world} />}
+          <CompactMeters world={world} />
           <div className="visual-wrap">
-            <VisualStage visual={node.visual} world={world} />
+            <VisualStage nodeId={nodeId} world={world} />
           </div>
           <ChoiceList choices={node.choices} onChoose={onChoose} />
           {terminal && (

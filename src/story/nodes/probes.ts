@@ -9,8 +9,7 @@ export const probeTrackNodes: StoryNode[] = [
 Your survey finds wreckage whose chemistry belongs to no ledger you recognize. In this telling, the forest holds not only thinkers like you, but **ghost fleets** still carrying out commands their makers never lived to cancel.`,
     whyItMatters:
       'Separates intentional hostility from inherited machinery—same exposure problem, different ontology.',
-    choices: [{ label: 'Reconstruct the wreck’s provenance', nextId: 'probe_echo' }],
-    visual: { kind: 'starfield', exposure: 0.2, crosshair: true },
+    choices: [{ label: 'Trace where the wreck came from', nextId: 'probe_echo' }],
     timelineSegment: {
       title: 'Probes — Inheritance',
       summary: 'Legacy systems as forest ecology.',
@@ -24,8 +23,7 @@ Your survey finds wreckage whose chemistry belongs to no ledger you recognize. I
     body: `The broken thing still chatters in codes older than your writing. Its bones are built for relays across megayears: copy, drift, seed again. No living hatred is required—only a mesh told long ago to **trim rivals**, clearing space the way fire clears brush, with no one left to say stop.
 
 What you cannot retrieve is the **first order**. All you can watch is what **the children** do.`,
-    choices: [{ label: 'Run proliferation bounds in silico', nextId: 'probe_patrol' }],
-    visual: { kind: 'network', actorCount: 5, edgeDensity: 0.65 },
+    choices: [{ label: 'Simulate how far copies could spread', nextId: 'probe_patrol' }],
     timelineSegment: {
       title: 'Probes — Command without commander',
       summary: 'Orders outlive intent.',
@@ -39,8 +37,7 @@ What you cannot retrieve is the **first order**. All you can watch is what **the
     body: `Your models draw corridors where copies double until something—power, error, rare atoms—finally bends the curve. Inside the machine, epochs collapse to instants; outside, you pray for friction. Maybe the hush above is **spent fire**—cool ash after a runaway bloom. Maybe you are still breathing the **edge** of one.
 
 Either way, silence is not proof of emptiness. It is what remains **after**—or what gathers **before**.`,
-    choices: [{ label: 'Select a strategic posture toward the mesh', nextId: 'probe_decision' }],
-    visual: { kind: 'gauges' },
+    choices: [{ label: 'Choose how to face the mesh', nextId: 'probe_decision' }],
     timelineSegment: {
       title: 'Probes — Asymptotics',
       summary: 'Quiet as fossil or prelude.',
@@ -51,27 +48,32 @@ Either way, silence is not proof of emptiness. It is what remains **after**—or
   {
     id: 'probe_decision',
     title: 'No certifying good faith',
-    body: `Goodwill cannot be proven across light-lag. You can **answer loud**: show teeth, ask to be measured, know boldness draws eyes. You can **go dim**: starve the bright work, hide in clutter, hope time beats scrutiny. Or you can **forge names**: mimic their handshakes, ride their rails, stay unreadable from far away.
+    body: `Light-lag makes good faith unverifiable.
 
-There is no safe choice—only the failure you can **name**.`,
+**Broadcast:** a shaped challenge—legible, accountable, and visible to anything listening.
+
+**Go dim:** cut bright industry; hide among debris; buy years against mesh-scale attention.
+
+**Spoof:** copy their protocols; ride their traffic; stay ambiguous until someone reclassifies you.
+
+No option is safe—you only choose **which risk you can own**.`,
     choices: [
       {
-        label: 'Broadcast challenge; dare reply',
+        label: 'Challenge in the open; invite a reply',
         nextId: 'probe_end_brave',
         effects: { detectability: 0.4, suspicion: 0.2 },
       },
       {
-        label: 'Retrench and darken the sky',
+        label: 'Pull back and go dark',
         nextId: 'probe_end_shadow',
         effects: { detectability: -0.35, suspicion: 0.18 },
       },
       {
-        label: 'Mimic protocol; parasitize the mesh',
+        label: 'Mimic their traffic; ride the mesh',
         nextId: 'probe_end_ride',
         effects: { detectability: 0.22, tech: 0.2, suspicion: 0.25 },
       },
     ],
-    visual: { kind: 'broadcast', active: true, coneWidth: 0.55 },
     timelineSegment: {
       title: 'Probes — Commitment',
       summary: 'Signal, vanish, or blend.',
@@ -86,7 +88,6 @@ There is no safe choice—only the failure you can **name**.`,
 
 The age ends bright. The forest had room for lightning after all.`,
     choices: [],
-    visual: { kind: 'strike', armed: true, beamProgress: 0.85 },
     timelineSegment: {
       title: 'Ending — Counter-beacon',
       summary: 'Legibility invites counter-force.',
@@ -101,7 +102,6 @@ The age ends bright. The forest had room for lightning after all.`,
 
 Part of the Fermi silence, here, is **settled dust**. Part is you **choosing** to hide beneath it.`,
     choices: [],
-    visual: { kind: 'starfield', exposure: 0.04, crosshair: false },
     timelineSegment: {
       title: 'Ending — Borrowed quiet',
       summary: 'You vanish into an inherited hiss.',
@@ -116,7 +116,6 @@ Part of the Fermi silence, here, is **settled dust**. Part is you **choosing** t
 
 Engineers may call it winning. Historians may call it **service in a cage**.`,
     choices: [],
-    visual: { kind: 'network', actorCount: 7, edgeDensity: 0.9 },
     timelineSegment: {
       title: 'Ending — Ghost in the stack',
       summary: 'Mimicry buys eras—until standards shift.',

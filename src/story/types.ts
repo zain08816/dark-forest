@@ -18,13 +18,6 @@ export type Choice = {
   effects?: Partial<WorldState>;
 };
 
-export type VisualSpec =
-  | { kind: 'starfield'; exposure: number; crosshair?: boolean }
-  | { kind: 'network'; actorCount: number; edgeDensity: number }
-  | { kind: 'broadcast'; active: boolean; coneWidth: number }
-  | { kind: 'strike'; armed: boolean; beamProgress: number }
-  | { kind: 'gauges' };
-
 export type TimelineSegment = {
   title: string;
   summary: string;
@@ -42,7 +35,6 @@ export type StoryNode = {
   body: string;
   whyItMatters?: string;
   choices: Choice[];
-  visual: VisualSpec;
   timelineSegment: TimelineSegment;
 };
 

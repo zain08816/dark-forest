@@ -16,7 +16,7 @@ export type WorldMeterDef = {
   color: string;
 };
 
-/** Shared copy for Exposure, Suspicion, Explosion risk (Dark Forest toy model). */
+/** Shared copy for Exposure, Suspicion, Technological explosion risk (Dark Forest toy model). */
 export const WORLD_METERS: WorldMeterDef[] = [
   {
     key: 'detectability',
@@ -34,7 +34,7 @@ export const WORLD_METERS: WorldMeterDef[] = [
   },
   {
     key: 'tech',
-    label: 'Explosion risk',
+    label: 'Technological explosion risk',
     description:
       "From an outsider's view, how sharply your power could rise over time—fear of technological explosion even if you are not bright today.",
     color: '#7fd67f',

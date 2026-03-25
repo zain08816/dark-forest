@@ -9,8 +9,7 @@ export const zooTrackNodes: StoryNode[] = [
 The scheme is fragile. One cheater can break a truce. Still, it colors the same blank sky with **rules** as much as with fear.`,
     whyItMatters:
       'Shows that “universal hiding” is not prerequisite for quiet—shared taboos suffice in principle.',
-    choices: [{ label: 'Search for observability artifacts', nextId: 'zoo_watch' }],
-    visual: { kind: 'starfield', exposure: 0.15, crosshair: false },
+    choices: [{ label: 'Look for traces of being watched', nextId: 'zoo_watch' }],
     timelineSegment: {
       title: 'Zoo — Policy silence',
       summary: 'Quiet as governance, not absence.',
@@ -24,8 +23,7 @@ The scheme is fragile. One cheater can break a truce. Still, it colors the same 
     body: `Glitches in your sky surveys line up too well; some shadows fall **too neatly** for chance. This is not mysticism. It is the dull truth that **careless watching leaves prints**. If this world is a preserve, a custodian’s stumble is how you learn the fence exists.
 
 Any serious ear in the dark is rude—and may be **required**.`,
-    choices: [{ label: 'Press until the boundary answers', nextId: 'zoo_slip' }],
-    visual: { kind: 'network', actorCount: 4, edgeDensity: 0.5 },
+    choices: [{ label: 'Push until something reacts', nextId: 'zoo_slip' }],
     timelineSegment: {
       title: 'Zoo — Instrument fingerprints',
       summary: 'Order in the noise, or pareidolia.',
@@ -39,8 +37,7 @@ Any serious ear in the dark is rude—and may be **required**.`,
     body: `A packet arrives with no sender you can swear to. The words are flat, facilities-grade: *do not shout on the marked bands; if you do, you will learn what custodial means.* No sermon—only **memo speech**, maybe slipped by a tired hand or a rebel in the office.
 
 Owning the file is proof of **handlers**. Handlers mean law you did not pass—and whoever fights over that law is still behind the page.`,
-    choices: [{ label: 'Choose a response to the breach', nextId: 'zoo_fork' }],
-    visual: { kind: 'broadcast', active: true, coneWidth: 0.35 },
+    choices: [{ label: 'Decide what to do with the memo', nextId: 'zoo_fork' }],
     timelineSegment: {
       title: 'Zoo — Rules without seal',
       summary: 'Housekeeping as ontology.',
@@ -51,12 +48,16 @@ Owning the file is proof of **handlers**. Handlers mean law you did not pass—a
   {
     id: 'zoo_fork',
     title: 'Compliance, rupture, or stratagem',
-    body: `You can **keep the bargain**—turn curiosity indoors, buy healing instead of megaphones, act the calm exhibit and hope mercy holds. You can **break the glass**—push the file to everyone, bet that daylight forces a face to show. Or you can **leak in slices**—tell only those who can stand it, and try not to trip machines built for crowd panic.
+    body: `**Comply:** keep the memo contained; study sideways in private; behave like a tractable exhibit.
 
-Every path shares one cut: you are small, you are late, and you **cannot unread** what you know.`,
+**Go public:** release the packet wholesale—force keepers, scrubbers, or chaos into the open.
+
+**Brief the competent only:** tell engineers, judges, rivals who can act—split society, but avoid stampedes.
+
+Whichever you pick, you are small, you are late, and you **cannot unread** the fence.`,
     choices: [
       {
-        label: 'Comply; study obliquely',
+        label: 'Comply and study quietly',
         nextId: 'zoo_end_calm',
         effects: { detectability: -0.15, suspicion: -0.1 },
       },
@@ -66,12 +67,11 @@ Every path shares one cut: you are small, you are late, and you **cannot unread*
         effects: { detectability: 0.45, suspicion: 0.2 },
       },
       {
-        label: 'Disclose narrowly to capable actors',
+        label: 'Tell only people who can act on it',
         nextId: 'zoo_end_deal',
         effects: { detectability: 0.2, suspicion: 0.12 },
       },
     ],
-    visual: { kind: 'gauges' },
     timelineSegment: {
       title: 'Zoo — Shock to sovereignty',
       summary: 'Obedience, scandal, or elite compact.',
@@ -86,7 +86,6 @@ Every path shares one cut: you are small, you are late, and you **cannot unread*
 
 If the zoo is real, most people live on tracks they cannot see—until boredom or disaster finds a hand too quick to wait.`,
     choices: [],
-    visual: { kind: 'starfield', exposure: 0.12, crosshair: true },
     timelineSegment: {
       title: 'Ending — Stewarded world',
       summary: 'Survival through discretion.',
@@ -101,7 +100,6 @@ If the zoo is real, most people live on tracks they cannot see—until boredom o
 
 The quiet over your cities cracks even when the galaxy does not blink. History will call your act courage, vandalism, or both at once.`,
     choices: [],
-    visual: { kind: 'strike', armed: true, beamProgress: 0.5 },
     timelineSegment: {
       title: 'Ending — Open habitat',
       summary: 'Universal knowledge; uneven survival.',
@@ -116,7 +114,6 @@ The quiet over your cities cracks even when the galaxy does not blink. History w
 
 Zoos and Dark Forests agree on one point: the loud and careless are a danger. Ceremony becomes armor—and maybe a slow poison.`,
     choices: [],
-    visual: { kind: 'network', actorCount: 6, edgeDensity: 0.72 },
     timelineSegment: {
       title: 'Ending — Quiet cabal',
       summary: 'Order without fireworks—until betrayal.',

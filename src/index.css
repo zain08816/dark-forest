@@ -151,10 +151,23 @@ body {
   padding: 1.25rem 1.25rem 1.5rem;
 }
 
+.narrative-beat .beat-head {
+  margin: 0 0 1rem;
+}
+
 .narrative-beat .beat-title {
   font-size: 1.35rem;
   font-weight: 600;
-  margin: 0 0 1rem;
+  margin: 0 0 0.35rem;
+}
+
+.narrative-beat .beat-era {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.03em;
+  color: var(--accent);
 }
 
 .beat-body p {
@@ -482,12 +495,52 @@ body {
 }
 
 .story-path-map-scroll {
+  position: relative;
   overflow-x: auto;
   overflow-y: hidden;
   margin: 0.75rem 0;
   border: 1px solid var(--border);
   border-radius: 10px;
   background: #050608;
+}
+
+.story-path-hover-tip {
+  position: fixed;
+  z-index: 200;
+  max-width: min(22rem, calc(100vw - 2rem));
+  padding: 0.45rem 0.6rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, #0a0e14 96%, var(--accent));
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+  pointer-events: none;
+  font-size: 0.82rem;
+  line-height: 1.35;
+}
+
+.story-path-hover-tip-title {
+  display: block;
+  font-weight: 600;
+  color: var(--text);
+}
+
+.story-path-hover-tip-sub {
+  margin-top: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.story-path-edge-hit {
+  stroke: transparent;
+  stroke-width: 18;
+  fill: none;
+  pointer-events: stroke;
+  cursor: default;
 }
 
 .story-path-svg {
@@ -697,9 +750,43 @@ body {
   background: #3a4a62;
 }
 
+.timeline-thumb {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  margin-top: 0.12rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  border-radius: 7px;
+  border: 1px solid var(--border);
+  background: #050608;
+  overflow: hidden;
+}
+
+.beat-visual--thumb {
+  width: 30px;
+  height: 30px;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.beat-visual--thumb .visual-svg {
+  width: 100px;
+  height: 100px;
+  max-height: none;
+  transform: scale(0.3);
+  transform-origin: top left;
+}
+
 .timeline-item.current .timeline-dot {
   background: var(--accent);
   box-shadow: 0 0 8px rgba(110, 181, 255, 0.5);
+}
+
+.timeline-item.current .timeline-thumb {
+  border-color: color-mix(in srgb, var(--accent) 55%, var(--border));
+  box-shadow: 0 0 10px rgba(110, 181, 255, 0.35);
 }
 
 .timeline-body {

@@ -1,10 +1,17 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, type MouseEvent } from 'react';
 import { storyGraph, START_ID } from '../story/graph';
 import { buildPathSteps } from '../story/pathDecisions';
 import { buildStoryMapLayout, type StoryMapEdge } from '../story/storyGraphLayout';
 import { RichParagraph } from './RichParagraph';
 
 const NODE_R = 13;
+
+type HoverTip = {
+  clientX: number;
+  clientY: number;
+  title: string;
+  subtitle?: string;
+};
 
 type Props = {
   timelineIds: string[];
@@ -69,8 +76,15 @@ export function StoryPathMap({ timelineIds, decisions, currentNodeId }: Props) {
   }, [layout.nodes]);
 
   const [focusId, setFocusId] = useState<string | null>(null);
+  const [hoverTip, setHoverTip] = useState<HoverTip | null>(null);
   const selectedId = focusId ?? currentNodeId;
   const selected = storyGraph[selectedId];
+
+  const moveHoverTip = (e: MouseEvent) => {
+    setHoverTip((t) =>
+      t ? { ...t, clientX: e.clientX, clientY: e.clientY } : null
+    );
+  };
 
   const endings = useMemo(
     () => layout.nodes.filter((n) => n.terminal).sort((a, b) => a.title.localeCompare(b.title)),
@@ -91,10 +105,23 @@ export function StoryPathMap({ timelineIds, decisions, currentNodeId }: Props) {
 
       <h3 className="story-path-map-sub">Full branch map</h3>
       <p className="story-path-map-hint">
-        Hover nodes for titles. Click any beat or ending to read a short excerpt. Your route is highlighted.
+        Hover a node or branch to preview it. Click any beat or ending to read a short excerpt. Your route is
+        highlighted.
       </p>
 
       <div className="story-path-map-scroll">
+        {hoverTip && (
+          <div
+            className="story-path-hover-tip"
+            style={{ left: hoverTip.clientX + 14, top: hoverTip.clientY + 14 }}
+            role="tooltip"
+          >
+            <span className="story-path-hover-tip-title">{hoverTip.title}</span>
+            {hoverTip.subtitle ? (
+              <span className="story-path-hover-tip-sub">{hoverTip.subtitle}</span>
+            ) : null}
+          </div>
+        )}
         <svg
           className="story-path-svg"
           viewBox={`0 0 ${layout.width} ${layout.height}`}
@@ -133,16 +160,33 @@ export function StoryPathMap({ timelineIds, decisions, currentNodeId }: Props) {
                 e.altCount > 1 ? (e.altIndex - (e.altCount - 1) / 2) * 11 : 0;
               const onPath = isEdgeOnPath(e, timelineIds, decisions);
               const d = edgeCurvePath(p1.x, p1.y, p2.x, p2.y, yBump);
+              const toTitle = storyGraph[e.to]?.title ?? e.to;
               return (
-                <path
-                  key={`${e.from}-${e.to}-${e.choiceIndex}-${i}`}
-                  d={d}
-                  className={
-                    onPath ? 'story-path-edge story-path-edge--active' : 'story-path-edge'
-                  }
-                  fill="none"
-                  markerEnd={onPath ? 'url(#story-arrow-path)' : 'url(#story-arrow)'}
-                />
+                <g key={`${e.from}-${e.to}-${e.choiceIndex}-${i}`}>
+                  <path
+                    d={d}
+                    className={
+                      onPath ? 'story-path-edge story-path-edge--active' : 'story-path-edge'
+                    }
+                    fill="none"
+                    markerEnd={onPath ? 'url(#story-arrow-path)' : 'url(#story-arrow)'}
+                  />
+                  <path
+                    d={d}
+                    className="story-path-edge-hit"
+                    fill="none"
+                    onMouseEnter={(ev) =>
+                      setHoverTip({
+                        clientX: ev.clientX,
+                        clientY: ev.clientY,
+                        title: e.label,
+                        subtitle: `→ ${toTitle}`,
+                      })
+                    }
+                    onMouseMove={moveHoverTip}
+                    onMouseLeave={() => setHoverTip(null)}
+                  />
+                </g>
               );
             })}
           </g>
@@ -156,6 +200,10 @@ export function StoryPathMap({ timelineIds, decisions, currentNodeId }: Props) {
               if (onRoute) cls += ' story-path-node--route';
               if (isEnd) cls += ' story-path-node--end';
               if (isSel) cls += ' story-path-node--selected';
+
+              const nodeMeta = storyGraph[n.id];
+              const tipTitle = nodeMeta?.title ?? n.title;
+              const tipSub = nodeMeta?.timelineSegment.summary;
 
               return (
                 <g
@@ -171,8 +219,17 @@ export function StoryPathMap({ timelineIds, decisions, currentNodeId }: Props) {
                       setFocusId(n.id);
                     }
                   }}
+                  onMouseEnter={(ev) =>
+                    setHoverTip({
+                      clientX: ev.clientX,
+                      clientY: ev.clientY,
+                      title: tipTitle,
+                      subtitle: tipSub,
+                    })
+                  }
+                  onMouseMove={moveHoverTip}
+                  onMouseLeave={() => setHoverTip(null)}
                 >
-                  <title>{n.title}</title>
                   <circle r={NODE_R} className="story-path-node-dot" />
                   <text
                     className="story-path-node-label"
